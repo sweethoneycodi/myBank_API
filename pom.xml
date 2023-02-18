@@ -104,6 +104,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>mybank-image-new</finalName>
     </build>
 
 </project>
