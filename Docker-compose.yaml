@@ -6,7 +6,7 @@ services:
       target: development
     container_name: backend
     ports:
-      - "9082:9082"
+      - "8080:9082"
     environment:
       - SPRING_DATASOURCE_USERNAME=mybank
       - SPRING_DATASOURCE_PASSWORD=1234
