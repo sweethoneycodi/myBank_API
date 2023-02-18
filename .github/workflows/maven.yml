@@ -35,7 +35,7 @@ jobs:
         with:
             image: tagyrian22/mybank-image-new
             tags: latest
-            registry: docker.io.io
+            registry: docker.io
             dockerfile: Dockerfile
             username: ${{ secrets.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_PASSWORD }}
