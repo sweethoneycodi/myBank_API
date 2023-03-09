@@ -69,4 +69,16 @@ public class JwtUtils {
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
     }
+
+    public String generateSignUpConfirmationToken(String email){
+        Date currentDate = new Date();
+        Date expirationDate = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(2));
+
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .compact();
+    }
 }

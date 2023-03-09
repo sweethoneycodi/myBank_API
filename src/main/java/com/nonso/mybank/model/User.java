@@ -14,5 +14,8 @@ import lombok.*;
 @Table(name = "user_tb")
 public class User extends Person{
     @Column(nullable = false)
-    private Integer pin;
+    private String pin;
+    private String bvn;
+    private String confirmationToken;
+    private boolean isActive;
 }

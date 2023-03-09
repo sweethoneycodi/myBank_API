@@ -25,6 +25,8 @@ public class AppUtils {
     @Autowired
     private UserRepository userRepository;
 
+    private final Logger logger = LoggerFactory.getLogger(AppUtils.class);
+
 
 
     public User getLoggedInUser() throws ResourceNotFoundException {
@@ -41,7 +43,7 @@ public class AppUtils {
         return null;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(AppUtils.class);
+
 
     public void log(String message) {
         logger.info(message);
