@@ -12,9 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -112,6 +115,23 @@ public class AppUtils {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    public String getReference() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        return now.format(formatter);
+    }
+
+    public String generateReference() {
+        // Generate a random UUID
+        UUID uuid = UUID.randomUUID();
+
+        // Remove the hyphens and convert to uppercase
+        String reference = uuid.toString().replaceAll("-", "").toUpperCase();
+
+        // Return the first 10 characters
+        return reference.substring(0, 10);
     }
 
 

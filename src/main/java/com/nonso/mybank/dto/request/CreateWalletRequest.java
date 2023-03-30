@@ -25,7 +25,7 @@ public class CreateWalletRequest {
 
     private String tx_ref;
 
-    private String is_permanent;
+    private Boolean is_permanent;
 
     private String narration;
 }
