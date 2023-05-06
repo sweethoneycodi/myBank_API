@@ -1,4 +1,7 @@
 package com.nonso.mybank.dto.request;
+
+import lombok.Data;
+
 @Data
 public class ElectricityRequestDto {
     private String request_id;

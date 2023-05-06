@@ -103,33 +103,33 @@ public class RestTemplateUtil {
                 HttpMethod.GET, entity, DataVariationsResponse.class).getBody();
 
     }
-    public BillResponse getVTPassElectricityBillResponse(ElectricityRequestDto requestDto) {
-        HttpHeaders headers = getVTPASS_Header();
-        HttpEntity<ElectricityRequestDto> entity = new HttpEntity<>(requestDto, headers);
-
-        return restTemplate.exchange(environmentVariables.getElectricityBillsUrl(),
-                HttpMethod.POST, entity, BillResponse.class).getBody();
-
-    }
-    public DataPurchaseResponse getDataPurchaseResponse(DataRequestDto dataRequestDto) {
-        HttpHeaders headers = getVTPASS_Header();
-        HttpEntity<DataRequestDto> entity = new HttpEntity<>(dataRequestDto, headers);
-
-        return restTemplate.exchange(environmentVariables.getPurchaseDataUrl(),
-                HttpMethod.POST, entity, DataPurchaseResponse.class).getBody();
-    }
-    public TvPurchaseResponse getTvPurchaseResponse(VtPassTvPurchaseRequest vtPassRequest) {
-        HttpHeaders headers = getVTPASS_Header();
-
-        HttpEntity<VtPassTvPurchaseRequest> entity = new HttpEntity<>(vtPassRequest, headers);
-        return restTemplate.exchange(environmentVariables.getPurchaseSubscriptionUrl(),
-                HttpMethod.POST, entity, TvPurchaseResponse.class).getBody();
-    }
-
-    public TvVariationsResponse fetchTvVariations(String tvServiceProvider){
-        HttpHeaders headers = getVTPASS_Header();
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-        return restTemplate.exchange(environmentVariables.getFetchTvVariations() + "serviceID=" + tvServiceProvider,
-                HttpMethod.GET, entity, TvVariationsResponse.class).getBody();
-    }
+//    public BillResponse getVTPassElectricityBillResponse(ElectricityRequestDto requestDto) {
+//        HttpHeaders headers = getVTPASS_Header();
+//        HttpEntity<ElectricityRequestDto> entity = new HttpEntity<>(requestDto, headers);
+//
+//        return restTemplate.exchange(environmentVariables.getElectricityBillsUrl(),
+//                HttpMethod.POST, entity, BillResponse.class).getBody();
+//
+//    }
+//    public DataPurchaseResponse getDataPurchaseResponse(DataRequestDto dataRequestDto) {
+//        HttpHeaders headers = getVTPASS_Header();
+//        HttpEntity<DataRequestDto> entity = new HttpEntity<>(dataRequestDto, headers);
+//
+//        return restTemplate.exchange(environmentVariables.getPurchaseDataUrl(),
+//                HttpMethod.POST, entity, DataPurchaseResponse.class).getBody();
+//    }
+//    public TvPurchaseResponse getTvPurchaseResponse(VtPassTvPurchaseRequest vtPassRequest) {
+//        HttpHeaders headers = getVTPASS_Header();
+//
+//        HttpEntity<VtPassTvPurchaseRequest> entity = new HttpEntity<>(vtPassRequest, headers);
+//        return restTemplate.exchange(environmentVariables.getPurchaseSubscriptionUrl(),
+//                HttpMethod.POST, entity, TvPurchaseResponse.class).getBody();
+//    }
+//
+//    public TvVariationsResponse fetchTvVariations(String tvServiceProvider){
+//        HttpHeaders headers = getVTPASS_Header();
+//        HttpEntity<?> entity = new HttpEntity<>(headers);
+//        return restTemplate.exchange(environmentVariables.getFetchTvVariations() + "serviceID=" + tvServiceProvider,
+//                HttpMethod.GET, entity, TvVariationsResponse.class).getBody();
+//    }
 }
