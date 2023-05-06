@@ -3,6 +3,7 @@ package com.nonso.mybank.service.impl;
 import com.nonso.mybank.configuration.mail.EmailService;
 import com.nonso.mybank.configuration.security.CustomUserDetailService;
 import com.nonso.mybank.configuration.security.JwtUtils;
+import com.nonso.mybank.dto.Response.UserProfile;
 import com.nonso.mybank.dto.request.*;
 import com.nonso.mybank.exception.UserNotFoundException;
 import com.nonso.mybank.exception.ValidationException;
@@ -43,7 +44,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApiResponse<String> updatePassword(PasswordResetDTO passwordResetDTO) {
-        return null;
+        String currentPassword = passwordResetDTO.getCurrentPassword();
+        String newPassword = passwordResetDTO.getNewPassword();
+
+        User user = utils.getLoggedInUser();
+        String savedPassword = user.getPassword();
+
+        if(!passwordEncoder.matches(currentPassword, savedPassword)) {
+            throw new ValidationException("Password does not match");
+        } else {
+            passwordResetDTO.setNewPassword(newPassword);
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            emailService.sendMail(user.getEmail(),"Update Password","your password have been updated successfully");
+        }
+        return new ApiResponse<>("success","password update",null);
     }
 
     @Override
@@ -107,6 +122,44 @@ public class UserServiceImpl implements UserService {
         String link ="";
 
         emailService.sendMail(signUpDto.getEmail(),"","");
+        return null;
+    }
+
+    @Override
+    public ApiResponse<UserProfile> getUserProfile() {
+        User user = utils.getLoggedInUser();
+
+        UserProfile response = UserProfile.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
+        return new ApiResponse<>("Success","User profile",response);
+    }
+
+    @Override
+    public ApiResponse<String> forgotPassword(ForgotPasswordRequest request) {
+        String email = request.getEmail();
+
+        Boolean isEmailPresent = userRepository.existsByEmail(email);
+        if(!isEmailPresent)
+            throw new UserNotFoundException("User not found");
+        User user = userRepository.findByEmail(email).get();
+        String token = jwtUtils.resetPasswordToken(email);
+        user.setConfirmationToken(token);
+        userRepository.save(user);
+
+        String resetPasswordLink = "http://localhost:8080/api/v1/auth/resetPassword" + token;
+        String link = "<h3>Hello " + user.getFirstName() + ",<br> Click the link below to reset your password <a href=" + resetPasswordLink + "><br>Reset Password</a></h3>";
+
+        emailService.sendMail(user.getEmail(),"Reset password link",resetPasswordLink);
+        return null;
+    }
+
+    @Override
+    public ApiResponse<String> resetPassword(ResetPasswordDto resetPasswordDto) {
+        String password = resetPasswordDto.getNewPassword();
         return null;
     }
 }

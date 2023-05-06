@@ -26,6 +26,9 @@ public class EnvironmentVariables {
     @Value("${app.verify_transaction_endpoint}")
     private String verifyTransactionEndpoint;
 
+    @Value("${app.fetch_data_variations}")
+    private String fetchDataVariations;
+
     @Value("${app.WEBHOOK_VERIFY_HASH}")
     private String WEBHOOK_VERIFY_HASH;
 
